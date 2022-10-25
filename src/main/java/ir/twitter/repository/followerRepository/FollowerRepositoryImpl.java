@@ -13,8 +13,10 @@ public class FollowerRepositoryImpl implements FollowerRepository{
         session.save(follower);
     }
 
+
+
     @Override
-    public Optional<Follower> find(Session session, FollowerId followerId) {
+    public Optional<Follower> find(Session session, Follower followerId) {
         return Optional.ofNullable(session.createQuery("from Follower f where f.account.id = :accId  and f.follower.id = :follId" , Follower.class)
                 .setParameter("accId", followerId.getAccount().getId()).setParameter("follId", followerId.getFollower().getId())
                 .getResultList().get(0));
@@ -22,7 +24,7 @@ public class FollowerRepositoryImpl implements FollowerRepository{
 
 
     @Override
-    public Optional<List<Follower>> findAll(Session session, FollowerId followerId) {
+    public Optional<List<Follower>> findAll(Session session, Follower followerId) {
         return Optional.ofNullable(session.createQuery("from Follower f where f.account.id = :accId  and f.follower.id = :follId" , Follower.class)
                 .setParameter("accId", followerId.getAccount().getId()).setParameter("follId", followerId.getFollower().getId())
                 .getResultList());
@@ -33,7 +35,13 @@ public class FollowerRepositoryImpl implements FollowerRepository{
         session.update(follower);
     }
 
-    public void delete(Session session, FollowerId follower) {
+    @Override
+    public void delete(Session session, Follower follower) {
         session.delete(follower);
+    }
+
+    @Override
+    public Optional<List<Follower>> showAll(Session session) {
+        return Optional.ofNullable(session.createQuery("from Follower ", Follower.class).getResultList());
     }
 }

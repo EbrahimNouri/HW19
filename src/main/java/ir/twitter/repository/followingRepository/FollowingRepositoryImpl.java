@@ -14,16 +14,16 @@ public class FollowingRepositoryImpl implements FollowingRepository{
     }
 
     @Override
-    public Optional<Following> find(Session session, FollowingId followingId) {
+    public Optional<Following> find(Session session, Following followingId) {
         return Optional.ofNullable(session.createQuery("from Following f where f.account.id = :accId  and f.following.id = :follId" , Following.class)
                 .setParameter("accId", followingId.getAccount().getId()).setParameter("follId", followingId.getFollowing().getId())
                 .getResultList().get(0));
     }
 
     @Override
-    public Optional<List<Following>> findAll(Session session, FollowingId followingId) {
-        return Optional.ofNullable(session.createQuery("from Following f where f.account.id = :accId  and f.following.id = :follId" , Following.class)
-                .setParameter("accId", followingId.getAccount().getId()).setParameter("follId", followingId.getFollowing().getId())
+    public Optional<List<Following>> findAll(Session session, Following followingId) {
+        return Optional.ofNullable(session.createQuery("from Following f where f.account.id = :accId" , Following.class)
+                .setParameter("accId", followingId.getAccount().getId())
                 .getResultList());
     }
 
@@ -33,7 +33,7 @@ public class FollowingRepositoryImpl implements FollowingRepository{
     }
 
     @Override
-    public void delete(Session session, FollowingId following) {
+    public void delete(Session session, Following following) {
         session.delete(following);
     }
 }

@@ -1,15 +1,13 @@
 package ir.twitter.entity;
 
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.io.Serializable;
 @NoArgsConstructor
 @Getter
 @Setter
 @EqualsAndHashCode
+@AllArgsConstructor
 public class FollowerId implements Serializable {
 
     private Account account;

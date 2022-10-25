@@ -25,7 +25,7 @@ public class Account {
 
     private String password;
     @OneToMany(mappedBy = "account")
-    private List<Comment> commentList;
+    private List<Replay> replayList;
     @OneToMany(mappedBy = "account")
     private List<Like> like;
     @OneToMany(mappedBy = "account")

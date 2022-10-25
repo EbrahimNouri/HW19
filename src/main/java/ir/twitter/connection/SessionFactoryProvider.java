@@ -16,7 +16,7 @@ public class SessionFactoryProvider {
                 .addAnnotatedClass(Account.class)
                 .addAnnotatedClass(Tweet.class)
                 .addAnnotatedClass(Like.class)
-                .addAnnotatedClass(Comment.class)
+                .addAnnotatedClass(Replay.class)
                 .addAnnotatedClass(Follower.class)
                 .addAnnotatedClass(Following.class)
                 .buildMetadata()

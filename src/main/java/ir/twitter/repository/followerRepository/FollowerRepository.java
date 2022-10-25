@@ -3,6 +3,11 @@ package ir.twitter.repository.followerRepository;
 import ir.twitter.repository.BaseRepository;
 import ir.twitter.entity.Follower;
 import ir.twitter.entity.FollowerId;
+import org.hibernate.Session;
 
-public interface FollowerRepository extends BaseRepository<Follower, FollowerId> {
+import java.util.List;
+import java.util.Optional;
+
+public interface FollowerRepository extends BaseRepository<Follower, Follower> {
+    Optional<List<Follower>> showAll(Session session);
 }

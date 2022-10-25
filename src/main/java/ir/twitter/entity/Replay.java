@@ -12,17 +12,19 @@ import javax.persistence.*;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@IdClass ( CommentId.class )
-public class Comment {
+public class Replay {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     @ManyToOne()
     private Account account;
     @Column(length=280)
     private String comment;
-    @Id
     @ManyToOne
     private Tweet tweet;
+    @ManyToOne
+    private Replay replay;
 
     @Override
     public String toString() {
@@ -30,4 +32,5 @@ public class Comment {
                 "comment='" + comment + '\'' +
                 '}';
     }
+
 }

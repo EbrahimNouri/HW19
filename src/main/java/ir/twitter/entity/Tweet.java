@@ -20,7 +20,7 @@ public class Tweet {
     private String message;
 
     @OneToMany(mappedBy = "tweet")
-    private List<Comment> commentList;
+    private List<Replay> replayList;
 
     @OneToMany(mappedBy = "tweet")
     private List<Like> like;

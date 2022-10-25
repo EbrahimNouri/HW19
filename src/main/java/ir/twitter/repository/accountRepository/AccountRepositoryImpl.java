@@ -11,12 +11,10 @@ public class AccountRepositoryImpl implements AccountRepository {
         session.save(account);
     }
 
-    @Override
     public Optional<Account> find(Session session, Account account) {
         return Optional.empty();
     }
 
-    @Override
     public Optional<List<Account>> findAll(Session session, Account account) {
         return Optional.ofNullable(session.createQuery("from Account ", Account.class).getResultList());
     }
@@ -24,6 +22,16 @@ public class AccountRepositoryImpl implements AccountRepository {
     public Optional<Account> find(Session session, Long id) {
         return Optional.ofNullable(session.find(Account.class, id));
     }
+
+    @Override
+    public Optional<List<Account>> findAll(Session session, Long aLong) {
+        return Optional.empty();
+    }
+
+    public List findAll(Session session) {
+        return session.createQuery("from Account a, Account.class").stream().toList();
+    }
+
     @Override
     public void update(Session session, Account Account) {
 
@@ -35,14 +43,11 @@ public class AccountRepositoryImpl implements AccountRepository {
                 .executeUpdate();
     }
 
-    @Override
     public void delete(Session session, Account account) {
-        String hql = "delete from Account a where a.id =:id";
-
-        session.createQuery(hql).setParameter("id", account.getId()).executeUpdate();
+        session.delete(account);
     }
 
-@Override
+    @Override
     public void delete(Session session, Long id) {
 
         String hql = "delete from Account a where a.id =:id";
