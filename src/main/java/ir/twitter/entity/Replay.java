@@ -19,12 +19,15 @@ public class Replay {
     private Long id;
     @ManyToOne()
     private Account account;
-    @Column(length=280)
+    @Column(length = 280)
     private String comment;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     private Tweet tweet;
-    @ManyToOne
+
+    @ManyToOne(fetch = FetchType.EAGER)
     private Replay replay;
+
+    ReplayType replayType;
 
     @Override
     public String toString() {

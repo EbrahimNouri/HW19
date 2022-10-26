@@ -109,4 +109,11 @@ public class AccountServiceImpl implements AccountService{
             throw e;
         }
     }
+
+    @Override
+    public boolean checkAccount(String username, String password) {
+        try (Session session = SessionFactoryProvider.sessionFactory.openSession()){
+            return accountRepository.isExist(session, username, password);
+        }
+    }
 }

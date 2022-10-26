@@ -8,7 +8,10 @@ import ir.twitter.repository.followerRepository.FollowerRepositoryImpl;
 import ir.twitter.repository.followingRepository.FollowingRepositoryImpl;
 import org.hibernate.Session;
 
-public class FollowingServiceImpl implements FollowerService {
+import java.util.List;
+import java.util.Optional;
+
+public class FollowerServiceImpl implements FollowerService {
 
     private final FollowingRepositoryImpl FOLLOWING_REPOSITORY = new FollowingRepositoryImpl();
     private final FollowerRepositoryImpl FOLLOWER_REPOSITORY = new FollowerRepositoryImpl();
@@ -18,10 +21,10 @@ public class FollowingServiceImpl implements FollowerService {
         try (Session session = SessionFactoryProvider.sessionFactory.openSession()) {
             session.getTransaction().begin();
             try {
-                FOLLOWING_REPOSITORY.save(session,new Following(mainAccount, follower));
-                FOLLOWER_REPOSITORY.save(session,new Follower(follower, mainAccount));
+                FOLLOWING_REPOSITORY.save(session, new Following(mainAccount, follower));
+                FOLLOWER_REPOSITORY.save(session, new Follower(follower, mainAccount));
                 session.getTransaction().commit();
-            }catch (Exception e){
+            } catch (Exception e) {
                 session.getTransaction().rollback();
                 throw e;
             }
@@ -45,11 +48,12 @@ public class FollowingServiceImpl implements FollowerService {
     }
 
     @Override
-    public void showAllFollowers(Account mainAccount, Account follower) {
+    public Optional<List<Account>> showAllFollowers(Long mainAccount, Account follower) {
         try (Session session = SessionFactoryProvider.sessionFactory.openSession()) {
-
-            }catch (Exception e){
-                throw e;
-            }
+            return Optional.of(FOLLOWER_REPOSITORY.showAll(session, mainAccount).
+                    orElseThrow().stream().map(Follower::getFollower).toList());
+        } catch (Exception e) {
+            throw e;
+        }
     }
 }

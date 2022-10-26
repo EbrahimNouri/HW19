@@ -6,7 +6,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.util.List;
 
 @Entity
 @AllArgsConstructor
@@ -15,9 +14,11 @@ import java.util.List;
 @Getter
 @IdClass(FollowerId.class)
 public class Follower {
+
     @Id
     @ManyToOne
     private Account account;
+
     @Id
     @ManyToOne
     private Account follower;

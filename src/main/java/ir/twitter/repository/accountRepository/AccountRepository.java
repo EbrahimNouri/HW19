@@ -6,4 +6,6 @@ import org.hibernate.Session;
 
 public interface AccountRepository extends BaseRepository<Account, Long> {
     void delete(Session session, Long id);
+    boolean isExist(Session session, String username, String password);
+
 }

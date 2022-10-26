@@ -1,5 +1,6 @@
 package ir.twitter.repository.tweetRepository;
 
+import ir.twitter.dto.UsernameTweet;
 import ir.twitter.entity.Tweet;
 import org.hibernate.Session;
 
@@ -28,8 +29,6 @@ public class TweetRepositoryImpl implements TweetRepository {
     }
 
 
-
-
     public Optional<Tweet> findBYId(Session session, Long id) {
         return Optional.ofNullable(session.find(Tweet.class, id));
     }
@@ -46,5 +45,13 @@ public class TweetRepositoryImpl implements TweetRepository {
     @Override
     public Optional<List<Tweet>> showAll(Session session) {
         return Optional.ofNullable(session.createQuery("from Tweet ", Tweet.class).getResultList());
+    }
+
+    @Override
+    public Optional<List<UsernameTweet>> showAllTweetDTO(Session session) {
+        return Optional.ofNullable
+                (session.createQuery
+                        ("select t.account.userName, t.message, count(t.like.size) from Tweet t join fetch Replay ",
+                                UsernameTweet.class).getResultList());
     }
 }

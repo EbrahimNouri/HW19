@@ -1,6 +1,7 @@
 package ir.twitter.repository.replayRepositori;
 
 import ir.twitter.entity.Replay;
+import ir.twitter.entity.ReplayType;
 import org.hibernate.Session;
 
 import java.util.List;
@@ -31,5 +32,23 @@ public class ReplayRepositoryImpl implements ReplayRepository {
     public Optional<List<Replay>> findAll(Session session, Long tweetId) {
         return Optional.ofNullable(session.createQuery("from Replay c where c.tweet.id = :accId", Replay.class)
                 .setParameter("accId", tweetId).getResultList());
+    }
+
+    @Override
+    public Optional<List<Replay>> getReplayOfTweet(Session session, Long tweetId) {
+        return Optional.ofNullable(session.createQuery("from Replay c where c.tweet.id = :accId", Replay.class)
+                .setParameter("accId", tweetId).getResultList());
+    }
+
+    @Override
+    public Optional<List<Replay>> getReplayOfReplay(Session session, Long replayId) {
+        return Optional.ofNullable(session.createQuery("from Replay c where c.replay.id = :accId", Replay.class)
+                .setParameter("accId", replayId).getResultList());
+    }
+
+    @Override
+    public ReplayType checkReplayType(Session session, Long replayId) {
+        return session.createQuery("from Replay r where r.id = :id", Replay.class).setParameter("id", replayId)
+                .getSingleResult().getReplayType();
     }
 }

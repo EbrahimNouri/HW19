@@ -2,10 +2,12 @@ package ir.twitter.service.followerService;
 
 import ir.twitter.entity.Account;
 
+import java.util.List;
+import java.util.Optional;
+
 public interface FollowerService {
-    FollowingServiceImpl f
 
     void addFollowers(Account mainAccount, Account follower);
     void removeFollower(Account mainAccount, Account follower);
-    void showAllFollowers(Account mainAccount, Account follower);
+    Optional<List<Account>> showAllFollowers(Long mainAccount, Account follower);
 }

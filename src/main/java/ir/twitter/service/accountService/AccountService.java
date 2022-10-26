@@ -13,6 +13,7 @@ public interface AccountService {
     void updateAll(Account account);
     void removeAccount(Account account);
     Optional<Account> showAccount(Long id);
+    boolean checkAccount(String username, String password);
 
 
 }

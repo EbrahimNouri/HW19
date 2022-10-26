@@ -1,5 +1,6 @@
 package ir.twitter.repository.followerRepository;
 
+import ir.twitter.entity.Account;
 import ir.twitter.entity.Follower;
 import ir.twitter.entity.FollowerId;
 import org.hibernate.Session;
@@ -41,7 +42,8 @@ public class FollowerRepositoryImpl implements FollowerRepository{
     }
 
     @Override
-    public Optional<List<Follower>> showAll(Session session) {
-        return Optional.ofNullable(session.createQuery("from Follower ", Follower.class).getResultList());
+    public Optional<List<Follower>> showAll(Session session, Long accId) {
+        return Optional.ofNullable(session.createQuery("from Follower where Follower.account.id = :accId", Follower.class)
+                .setParameter("accId" , accId).getResultList());
     }
 }

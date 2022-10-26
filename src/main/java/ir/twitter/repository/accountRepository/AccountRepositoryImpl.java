@@ -42,7 +42,6 @@ public class AccountRepositoryImpl implements AccountRepository {
                 .setParameter("newEmail", Account.getEmail()).setParameter("id", Account.getId())
                 .executeUpdate();
     }
-
     public void delete(Session session, Account account) {
         session.delete(account);
     }
@@ -55,5 +54,9 @@ public class AccountRepositoryImpl implements AccountRepository {
         session.createQuery(hql).setParameter("id", id).executeUpdate();
     }
 
-
+    @Override
+    public boolean isExist(Session session, String username, String password) {
+        return session.createQuery("from Account a where a.userName = :un and a.password = :pw", Account.class)
+                .setParameter("un", username).setParameter("pw", password).getSingleResult().getUserName() != null;
+    }
 }
