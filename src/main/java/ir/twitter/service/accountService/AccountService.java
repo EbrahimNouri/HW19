@@ -15,5 +15,7 @@ public interface AccountService {
     Optional<Account> showAccount(Long id);
     boolean checkAccount(String username, String password);
 
+    Optional<Account> findById(Long id);
+
 
 }

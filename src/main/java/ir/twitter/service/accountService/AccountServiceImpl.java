@@ -116,4 +116,12 @@ public class AccountServiceImpl implements AccountService{
             return accountRepository.isExist(session, username, password);
         }
     }
+
+    @Override
+    public Optional<Account> findById(Long id) {
+        try (Session session = SessionFactoryProvider.sessionFactory.openSession()) {
+
+            return Optional.of(accountRepository.findById(session, id).orElseThrow());
+        }
+    }
 }

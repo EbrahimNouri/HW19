@@ -59,4 +59,9 @@ public class AccountRepositoryImpl implements AccountRepository {
         return session.createQuery("from Account a where a.userName = :un and a.password = :pw", Account.class)
                 .setParameter("un", username).setParameter("pw", password).getSingleResult().getUserName() != null;
     }
+
+    @Override
+    public Optional<Account> findById(Session session, Long id) {
+        return Optional.ofNullable(session.find(Account.class, id));
+    }
 }
