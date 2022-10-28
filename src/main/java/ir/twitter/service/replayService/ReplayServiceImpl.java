@@ -1,13 +1,12 @@
 package ir.twitter.service.replayService;
 
-import ir.twitter.connection.SessionFactoryProvider;
+import ir.twitter.utility.SessionFactoryProvider;
 import ir.twitter.entity.Replay;
 import ir.twitter.entity.ReplayType;
 import ir.twitter.repository.replayRepositori.ReplayRepositoryImpl;
 import org.hibernate.Session;
 
 import java.util.List;
-import java.util.Optional;
 
 public class ReplayServiceImpl implements ReplayService {
 
@@ -64,13 +63,18 @@ public class ReplayServiceImpl implements ReplayService {
     }
 
     @Override
-    public List<Replay> showAllReplay(long tweetId) {
+    public List<Replay> showAllReplayOfTweet(long tweetId) {
         try (Session session = SessionFactoryProvider.sessionFactory.openSession()) {
-            if (REPLAY_REPOSITORY.checkReplayType(session, tweetId) == ReplayType.TWEET) {
-                return REPLAY_REPOSITORY.getReplayOfTweet(session, tweetId).orElseThrow();
-            } else {
-                return REPLAY_REPOSITORY.getReplayOfReplay(session, tweetId).orElseThrow();
-            }
+            return REPLAY_REPOSITORY.getReplayOfTweet(session, tweetId).orElseThrow();
+
+        }
+    }
+
+    @Override
+    public List<Replay> showAllReplayOfReplay(long replayId) {
+        try (Session session = SessionFactoryProvider.sessionFactory.openSession()) {
+            return REPLAY_REPOSITORY.getReplayOfReplay(session, replayId).orElseThrow();
+
         }
     }
 }

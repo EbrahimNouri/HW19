@@ -1,4 +1,4 @@
-package ir.twitter.connection;
+package ir.twitter.utility;
 
 
 import javax.validation.Validation;

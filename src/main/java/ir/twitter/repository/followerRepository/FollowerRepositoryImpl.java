@@ -26,8 +26,8 @@ public class FollowerRepositoryImpl implements FollowerRepository{
 
     @Override
     public Optional<List<Follower>> findAll(Session session, Follower followerId) {
-        return Optional.ofNullable(session.createQuery("from Follower f where f.account.id = :accId  and f.follower.id = :follId" , Follower.class)
-                .setParameter("accId", followerId.getAccount().getId()).setParameter("follId", followerId.getFollower().getId())
+        return Optional.ofNullable(session.createQuery("from Follower f where f.account.id = :accId " , Follower.class)
+                .setParameter("accId", followerId.getAccount().getId())
                 .getResultList());
     }
 

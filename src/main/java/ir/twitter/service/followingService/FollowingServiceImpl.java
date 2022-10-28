@@ -1,6 +1,6 @@
 package ir.twitter.service.followingService;
 
-import ir.twitter.connection.SessionFactoryProvider;
+import ir.twitter.utility.SessionFactoryProvider;
 import ir.twitter.entity.Account;
 import ir.twitter.entity.Follower;
 import ir.twitter.entity.Following;
@@ -50,8 +50,6 @@ public class FollowingServiceImpl implements FollowingService {
         try (Session session = SessionFactoryProvider.sessionFactory.openSession()) {
             return Optional.of(FOLLOWING_REPOSITORY.findAll(session, new Following(account, null)).
                     orElseThrow().stream().map(Following::getFollowing).toList());
-        } catch (Exception e) {
-            throw e;
         }
     }
 }

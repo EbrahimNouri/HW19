@@ -1,7 +1,7 @@
 package ir.twitter.service.tweetService;
 
-import ir.twitter.connection.SessionFactoryProvider;
-import ir.twitter.dto.UsernameTweet;
+import ir.twitter.utility.SessionFactoryProvider;
+import ir.twitter.dto.UsernameTweetDto;
 import ir.twitter.entity.Tweet;
 import ir.twitter.repository.tweetRepository.TweetRepositoryImpl;
 import org.hibernate.Session;
@@ -57,21 +57,28 @@ public class TweetServiceImpl implements TweetService {
     @Override
     public List<Tweet> showAllTweetOfAnAccount(Long account) {
         try (Session session = SessionFactoryProvider.sessionFactory.openSession()) {
-                return TWEET_REPOSITORY.findAll(session, account).orElseThrow();
+            return TWEET_REPOSITORY.findAll(session, account).orElseThrow();
         }
     }
 
     @Override
     public List<Tweet> showAllTweet() {
-        try (Session session = SessionFactoryProvider.sessionFactory.openSession()){
+        try (Session session = SessionFactoryProvider.sessionFactory.openSession()) {
             return TWEET_REPOSITORY.showAll(session).orElseThrow();
         }
     }
 
     @Override
-    public List<UsernameTweet> showAllTweetDTO() {
+    public List<UsernameTweetDto> showAllTweetDTO() {
         try (Session session = SessionFactoryProvider.sessionFactory.openSession()) {
-            return TWEET_REPOSITORY.showAllTweetDTO(session).orElseThrow();
+            return TWEET_REPOSITORY.showAllTweetDTO(session);
+        }
+    }
+
+    @Override
+    public Tweet findById(Long id) {
+        try (Session session = SessionFactoryProvider.sessionFactory.openSession()) {
+            return TWEET_REPOSITORY.findById(session, id).orElseThrow();
         }
     }
 }

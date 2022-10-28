@@ -64,4 +64,10 @@ public class AccountRepositoryImpl implements AccountRepository {
     public Optional<Account> findById(Session session, Long id) {
         return Optional.ofNullable(session.find(Account.class, id));
     }
+
+    @Override
+    public Optional<Account> findByUsername(Session session, String username) {
+        return Optional.ofNullable(session.createQuery("from Account a where a.userName = :uname", Account.class)
+                .setParameter("uname", username).getSingleResult());
+    }
 }

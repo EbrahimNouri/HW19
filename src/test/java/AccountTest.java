@@ -1,23 +1,31 @@
 import ir.twitter.entity.Account;
+import ir.twitter.entity.Following;
 import ir.twitter.service.accountService.AccountServiceImpl;
 import ir.twitter.service.followerService.FollowerService;
+import ir.twitter.service.followerService.FollowerServiceImpl;
 import ir.twitter.service.followingService.FollowingServiceImpl;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import ir.twitter.utility.ApplicationContext;
+import org.junit.jupiter.api.*;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.Optional;
 
 import static org.hibernate.validator.internal.util.Contracts.assertNotNull;
 import static org.junit.jupiter.api.Assertions.*;
 
+
+//All test run is work
 public class AccountTest {
     private static Account account1;
     private static Account account2;
     private static Account account3;
     private static Account account4;
+    private static Account account5;
     private final AccountServiceImpl ACCOUNT_SERVICE = new AccountServiceImpl();
     private final FollowingServiceImpl FOLLOWING_SERVICE = new FollowingServiceImpl();
+    private final FollowerServiceImpl FOLLOWER_SERVICE = new FollowerServiceImpl();
 
     @BeforeAll
     static void beforeAllTest() {
@@ -28,6 +36,8 @@ public class AccountTest {
         account3 = new Account(null, "ebrahim3", "ebi3@gmail.com", "123456789", null,
                 null, null, null, null);
         account4 = new Account(null, "ebrahim4", "ebi4@gmail.com", "123456789", null,
+                null, null, null, null);
+        account5 = new Account(null, "ebrahim5", "ebi4@gmail.com", "123456789", null,
                 null, null, null, null);
     }
 
@@ -77,11 +87,50 @@ public class AccountTest {
                 , "No value present");
     }
 
-    @BeforeEach
-    void addFlower(){
-        FOLLOWING_SERVICE.followSomeone(account1, account2);
+
+    @Test
+    void findByUsernameTest(){
+        ApplicationContext.getAccountService().addAccount(account5);
+        Assertions.assertEquals("ebrahim5", ApplicationContext.getAccountService()
+                .findByUsername("ebrahim5").getUserName());
     }
-    void getFlowerOfAnAccount(){
-        f
-    }
+
+
+
+
+//todo I CAN'T RESOLVE THAT
+
+//    @BeforeEach
+//    void addFlower(){
+//        ACCOUNT_SERVICE.addAccount(account1);
+//        ACCOUNT_SERVICE.addAccount(account2);
+//        FOLLOWING_SERVICE.followSomeone(account1, account2);
+//    }
+//    @Test
+//    void getFlowerOfAnAccount(){
+//        //System.out.println(FOLLOWING_SERVICE.showAllFollowing(account1).stream().toList().get(0));
+//        Account test1 = FOLLOWING_SERVICE.showAllFollowing(account1).orElseThrow().get(0);
+//        Account test2 = FOLLOWER_SERVICE.showAllFollowers(account2).orElseThrow().get(0);
+//        assertEquals(account2.getUserName(), test1.getUserName());
+//        assertEquals(account1.getUserName(), test2.getUserName());
+//        FOLLOWING_SERVICE.unfollowSomeone(account1, account2);
+//        assertEquals(0, FOLLOWING_SERVICE.showAllFollowing(account1).get().size());
+//        assertEquals(0, FOLLOWING_SERVICE.showAllFollowing(account2).get().size());
+//    }
+
+
+//    @BeforeEach
+//    void addFlower2(){
+//        ACCOUNT_SERVICE.addAccount(account1);
+//        ACCOUNT_SERVICE.addAccount(account2);
+//        FOLLOWING_SERVICE.followSomeone(account1, account2);
+//    }
+//    @Test
+//    void removeFollowing(){
+//        assertFalse(FOLLOWING_SERVICE.showAllFollowing(account1).isEmpty());
+//        assertFalse(FOLLOWING_SERVICE.showAllFollowing(account2).isEmpty());
+//        FOLLOWING_SERVICE.unfollowSomeone(account1, account2);
+//        assertTrue(FOLLOWING_SERVICE.showAllFollowing(account1).isEmpty());
+//        assertTrue(FOLLOWING_SERVICE.showAllFollowing(account2).isEmpty());
+//    }
 }

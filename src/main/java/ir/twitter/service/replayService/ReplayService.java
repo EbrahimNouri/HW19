@@ -9,5 +9,7 @@ public interface ReplayService {
     void addReplay(Replay replay);
     void removeReplay(Replay replay);
     void editReplay(Replay replay, String message);
-    List<Replay> showAllReplay( long tweetId);
-}
+     List<Replay> showAllReplayOfTweet(long tweetId);
+     List<Replay> showAllReplayOfReplay(long replayId);
+
+    }

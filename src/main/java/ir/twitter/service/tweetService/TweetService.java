@@ -1,10 +1,11 @@
 package ir.twitter.service.tweetService;
 
-import ir.twitter.dto.UsernameTweet;
-import ir.twitter.entity.Account;
+import ir.twitter.dto.UsernameTweetDto;
 import ir.twitter.entity.Tweet;
+import org.hibernate.Session;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface TweetService {
     void addTweet(Tweet tweet);
@@ -12,6 +13,9 @@ public interface TweetService {
     void removeTweet(Long id);
     List<Tweet> showAllTweetOfAnAccount(Long account);
     List<Tweet> showAllTweet();
-    List<UsernameTweet> showAllTweetDTO();
+    List<UsernameTweetDto> showAllTweetDTO();
+
+    Tweet findById(Long id);
+
 
 }

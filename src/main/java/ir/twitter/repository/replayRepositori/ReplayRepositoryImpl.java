@@ -3,6 +3,7 @@ package ir.twitter.repository.replayRepositori;
 import ir.twitter.entity.Replay;
 import ir.twitter.entity.ReplayType;
 import org.hibernate.Session;
+import org.hibernate.type.Type;
 
 import java.util.List;
 import java.util.Optional;
@@ -36,19 +37,25 @@ public class ReplayRepositoryImpl implements ReplayRepository {
 
     @Override
     public Optional<List<Replay>> getReplayOfTweet(Session session, Long tweetId) {
-        return Optional.ofNullable(session.createQuery("from Replay c where c.tweet.id = :accId", Replay.class)
-                .setParameter("accId", tweetId).getResultList());
+        return Optional.ofNullable(session.createQuery("from Replay c where c.tweet.id = :tweetId", Replay.class)
+                .setParameter("tweetId", tweetId).getResultList());
     }
 
     @Override
     public Optional<List<Replay>> getReplayOfReplay(Session session, Long replayId) {
-        return Optional.ofNullable(session.createQuery("from Replay c where c.replay.id = :accId", Replay.class)
-                .setParameter("accId", replayId).getResultList());
+        return Optional.ofNullable(session.createQuery("from Replay c where c.replay.id = :replayId", Replay.class)
+                .setParameter("replayId", replayId).getResultList());
     }
 
     @Override
     public ReplayType checkReplayType(Session session, Long replayId) {
-        return session.createQuery("from Replay r where r.id = :id", Replay.class).setParameter("id", replayId)
-                .getSingleResult().getReplayType();
+        Replay replay = session.createQuery("from Replay r where r.id = :id", Replay.class).setParameter("id", replayId)
+                .getSingleResult();
+        return replay.getReplayType();
+
+//
+//        return session.createNativeQuery("select r.replayType from replay r where r.id = :replayId", ReplayType.class)
+//                .setParameter("replayId", replayId).getSingleResult();
+
     }
 }

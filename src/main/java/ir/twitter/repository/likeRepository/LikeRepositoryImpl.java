@@ -39,7 +39,6 @@ public class LikeRepositoryImpl implements LikeRepository {
         String hql = " delete from Like l where l.tweet.id =:id And l.account.id=:Id ";
         session.createQuery(hql).setParameter("id", like.getTweet().getId())
                 .setParameter("Id", like.getAccount().getId()).executeUpdate();
-
     }
 
 @Override
@@ -48,10 +47,5 @@ public class LikeRepositoryImpl implements LikeRepository {
         return session.createQuery
                         ("select count(l) from Like l where l.tweet.id =: id", Long.class)
                 .setParameter("id", tweetId).getSingleResult();
-
-
     }
-
-
-
 }

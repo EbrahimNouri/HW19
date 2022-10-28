@@ -1,6 +1,6 @@
 package ir.twitter.service.likeService;
 
-import ir.twitter.connection.SessionFactoryProvider;
+import ir.twitter.utility.SessionFactoryProvider;
 import ir.twitter.entity.Like;
 import ir.twitter.repository.likeRepository.LikeRepositoryImpl;
 import org.hibernate.Session;

@@ -9,5 +9,5 @@ public interface FollowerService {
 
     void addFollowers(Account mainAccount, Account follower);
     void removeFollower(Account mainAccount, Account follower);
-    Optional<List<Account>> showAllFollowers(Long mainAccount, Account follower);
+    Optional<List<Account>> showAllFollowers(Account mainAccount);
 }

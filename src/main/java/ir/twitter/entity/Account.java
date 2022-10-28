@@ -4,10 +4,7 @@ import jakarta.validation.Valid;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import net.bytebuddy.implementation.bind.MethodDelegationBinder;
 
 import javax.persistence.*;
@@ -16,6 +13,7 @@ import java.util.List;
 @Entity
 @Setter
 @Getter
+@ToString
 @AllArgsConstructor
 @NoArgsConstructor
 public class Account {
@@ -34,18 +32,23 @@ public class Account {
     private String password;
 
     @OneToMany(mappedBy = "account")
+    @ToString.Exclude
     private List<Replay> replayList;
 
     @OneToMany(mappedBy = "account")
+    @ToString.Exclude
     private List<Like> like;
 
     @OneToMany(mappedBy = "account")
+    @ToString.Exclude
     private List<Tweet> tweets;
 
     @OneToMany(mappedBy = "follower")
+    @ToString.Exclude
     private List<Follower> followers;
 
     @OneToMany(mappedBy = "following")
+    @ToString.Exclude
     private List<Following> followings;
 
 

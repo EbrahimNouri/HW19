@@ -13,7 +13,6 @@ import javax.persistence.*;
 public class Tweet {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id", nullable = false)
     private Long id;
 
     @Column(length = 280)
@@ -22,9 +21,9 @@ public class Tweet {
     @OneToMany(mappedBy = "tweet")
     private List<Replay> replayList;
 
-    @OneToMany(mappedBy = "tweet")
+    @OneToMany(mappedBy = "tweet", fetch = FetchType.EAGER)
     private List<Like> like;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     private Account account;
 
 

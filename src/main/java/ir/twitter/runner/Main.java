@@ -1,6 +1,6 @@
 package ir.twitter.runner;
 
-import ir.twitter.connection.SessionFactoryProvider;
+import ir.twitter.utility.SessionFactoryProvider;
 
 public class Main {
     public static void main(String[] args) {

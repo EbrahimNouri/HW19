@@ -1,9 +1,6 @@
 package ir.twitter.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 
@@ -12,6 +9,7 @@ import javax.persistence.*;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@ToString
 public class Replay {
 
     @Id
@@ -27,13 +25,6 @@ public class Replay {
     @ManyToOne(fetch = FetchType.EAGER)
     private Replay replay;
 
-    ReplayType replayType;
-
-    @Override
-    public String toString() {
-        return "Comment{" +
-                "comment='" + comment + '\'' +
-                '}';
-    }
+    private ReplayType replayType;
 
 }

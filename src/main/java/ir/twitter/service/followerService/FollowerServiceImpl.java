@@ -1,6 +1,6 @@
 package ir.twitter.service.followerService;
 
-import ir.twitter.connection.SessionFactoryProvider;
+import ir.twitter.utility.SessionFactoryProvider;
 import ir.twitter.entity.Account;
 import ir.twitter.entity.Follower;
 import ir.twitter.entity.Following;
@@ -48,12 +48,10 @@ public class FollowerServiceImpl implements FollowerService {
     }
 
     @Override
-    public Optional<List<Account>> showAllFollowers(Long mainAccount, Account follower) {
+    public Optional<List<Account>> showAllFollowers(Account mainAccount) {
         try (Session session = SessionFactoryProvider.sessionFactory.openSession()) {
-            return Optional.of(FOLLOWER_REPOSITORY.showAll(session, mainAccount).
+            return Optional.of(FOLLOWER_REPOSITORY.findAll(session, new Follower(mainAccount, null) ).
                     orElseThrow().stream().map(Follower::getFollower).toList());
-        } catch (Exception e) {
-            throw e;
         }
     }
 }
