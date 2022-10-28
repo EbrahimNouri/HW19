@@ -33,7 +33,7 @@ public class FollowingFollowerTest {
 
     @Order(2)
     @Test
-    void getFlowerOfAnAccount() {
+    void FlowAccountTest() {
         Account test1 = FOLLOWING_SERVICE.showAllFollowing(account1).orElseThrow().get(0);
         Account test2 = FOLLOWER_SERVICE.showAllFollowers(account2).orElseThrow().get(0);
         assertEquals(account2.getUserName(), test1.getUserName());
@@ -42,7 +42,7 @@ public class FollowingFollowerTest {
 
     @Order(1)
     @Test
-    void getUnfollowTest() {
+    void UnfollowTest() {
         FOLLOWING_SERVICE.unfollowSomeone(account1, account2);
         assertEquals(0, FOLLOWING_SERVICE.showAllFollowing(account1).get().size());
         assertEquals(0, FOLLOWING_SERVICE.showAllFollowing(account2).get().size());

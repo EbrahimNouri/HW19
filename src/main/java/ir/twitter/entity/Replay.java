@@ -15,7 +15,7 @@ public class Replay {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @ManyToOne()
+    @ManyToOne
     private Account account;
     @Column(length = 280)
     private String comment;

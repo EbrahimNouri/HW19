@@ -1,5 +1,6 @@
 package ir.twitter.service.followerService;
 
+import ir.twitter.utility.ApplicationContext;
 import ir.twitter.utility.SessionFactoryProvider;
 import ir.twitter.entity.Account;
 import ir.twitter.entity.Follower;
@@ -13,16 +14,14 @@ import java.util.Optional;
 
 public class FollowerServiceImpl implements FollowerService {
 
-    private final FollowingRepositoryImpl FOLLOWING_REPOSITORY = new FollowingRepositoryImpl();
-    private final FollowerRepositoryImpl FOLLOWER_REPOSITORY = new FollowerRepositoryImpl();
 
     @Override
     public void addFollowers(Account mainAccount, Account follower) {
         try (Session session = SessionFactoryProvider.sessionFactory.openSession()) {
             session.getTransaction().begin();
             try {
-                FOLLOWING_REPOSITORY.save(session, new Following(mainAccount, follower));
-                FOLLOWER_REPOSITORY.save(session, new Follower(follower, mainAccount));
+                ApplicationContext.getFollowingRepository().save(session, new Following(mainAccount, follower));
+                ApplicationContext.getFollowerRepository().save(session, new Follower(follower, mainAccount));
                 session.getTransaction().commit();
             } catch (Exception e) {
                 session.getTransaction().rollback();
@@ -36,8 +35,8 @@ public class FollowerServiceImpl implements FollowerService {
         try (Session session = SessionFactoryProvider.sessionFactory.openSession()) {
             session.getTransaction().begin();
             try {
-                FOLLOWING_REPOSITORY.delete(session, new Following(mainAccount, follower));
-                FOLLOWER_REPOSITORY.delete(session, new Follower(follower, mainAccount));
+                ApplicationContext.getFollowingRepository().delete(session, new Following(mainAccount, follower));
+                ApplicationContext.getFollowerRepository().delete(session, new Follower(follower, mainAccount));
                 session.getTransaction().commit();
             } catch (Exception e) {
                 session.getTransaction().rollback();
@@ -50,7 +49,7 @@ public class FollowerServiceImpl implements FollowerService {
     @Override
     public Optional<List<Account>> showAllFollowers(Account mainAccount) {
         try (Session session = SessionFactoryProvider.sessionFactory.openSession()) {
-            return Optional.of(FOLLOWER_REPOSITORY.findAll(session, new Follower(mainAccount, null) ).
+            return Optional.of(ApplicationContext.getFollowerRepository().findAll(session, new Follower(mainAccount, null) ).
                     orElseThrow().stream().map(Follower::getFollower).toList());
         }
     }
